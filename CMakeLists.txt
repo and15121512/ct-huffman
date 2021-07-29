@@ -34,6 +34,10 @@ endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
 install(TARGETS huffman CONFIGURATIONS Release RUNTIME DESTINATION ".")
 install(DIRECTORY ./data/ DESTINATION ".")
+install(DIRECTORY DESTINATION "./tests/compr_dict")
+install(DIRECTORY DESTINATION "./tests/compr_no_dict")
+install(DIRECTORY DESTINATION "./tests/out_dict")
+install(DIRECTORY DESTINATION "./tests/out_no_dict")
 
 # Testing
 set(TestBinDir ${CMAKE_SOURCE_DIR}/bin)

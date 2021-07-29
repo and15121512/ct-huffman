@@ -20,9 +20,12 @@ std::vector<size_t> Huffman::symbolsCounts(std::ifstream& fin_source) {
 }
 
 void Huffman::createDict(const std::string& source_name,
-                                  const std::string& dict_id,
-                                  const std::string& description) {
+                         const std::string& dict_id,
+                         const std::string& description) {
   const size_t kByteValsCnt = 256;
+  if (!std::filesystem::exists("dictionaries")) {
+	std::filesystem::create_directory("dictionaries");
+  }
   for (const auto& dir_entry : std::filesystem::recursive_directory_iterator("dictionaries")) {
     std::ostringstream sout;
     sout << dir_entry.path().filename();
@@ -60,8 +63,8 @@ void Huffman::createDict(const std::string& source_name,
 }
 
 void Huffman::encode(std::ifstream& fin_source,
-                            std::ofstream& fout_dest,
-                            const std::vector<size_t>& counts) {
+                     std::ofstream& fout_dest,
+                     const std::vector<size_t>& counts) {
   const size_t kByteValsCnt = 256;
   HuffmanTree ht(counts);
   std::vector<std::string> transl_table = ht.translationTable();
@@ -96,8 +99,8 @@ void Huffman::encode(std::ifstream& fin_source,
 }
 
 void Huffman::compressWithDict(const std::string& source_name,
-                                const std::string& dict_id,
-                                const std::string& destination_name) {
+                               const std::string& dict_id,
+                               const std::string& destination_name) {
   const size_t kByteValsCnt = 256;
   std::ifstream fin_dict;
   fin_dict.open("dictionaries/" + dict_id);
@@ -131,7 +134,7 @@ void Huffman::compressWithDict(const std::string& source_name,
 }
 
 void Huffman::compress(const std::string& source_name,
-                                  const std::string& destination_name) {
+                       const std::string& destination_name) {
   std::ifstream fin_source;
   fin_source.open(source_name);
   if (!fin_source) {
@@ -164,7 +167,7 @@ void Huffman::compress(const std::string& source_name,
 }
 
 void Huffman::unpacking(const std::string& source_name,
-                            const std::string& destination_name) {
+                        const std::string& destination_name) {
   const size_t kByteValsCnt = 256;
   std::ifstream fin_source;
   fin_source.open(source_name, std::ios::binary);

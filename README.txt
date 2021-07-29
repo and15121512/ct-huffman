@@ -17,5 +17,5 @@ comand. To see the list of avaliable commands check -h option.
 - Run "ctest -C Release"
 - All tests are expected to be passed
 4) running (next step):
-- Go to ./build/huffman/
+- Go to ./bin/
 - Run "./huffman.exe -h" to see the list of avaliable commands 
